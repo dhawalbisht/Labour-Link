@@ -1,0 +1,36 @@
+.backk {
+    position: relative;
+    background-color: #e6e6e6;
+    width: 100%;
+    height: 43rem;
+    overflow: hidden;
+    text-align: left;
+    font-size: 0.75rem;
+    color: #666;
+    font-family: "Montserrat";
+  }
+  .registeredtext {
+    position: absolute;
+    top: 13rem;
+    left: 7rem;
+    font-size: 2.2rem;
+    display: inline-block;
+    font-family: Montserrat;
+    color: #000;
+    width: 61rem;
+    height: 11rem;
+    text-align: center;
+    line-height: 3rem;
+  }
+  .registeredtextsupporting {
+    position: absolute;
+    top: 25rem;
+    left: 8.5rem;
+    font-size: 1.4rem;
+    display: inline-block;
+    font-family: Montserrat;
+    color: #ffb300;
+    width: 58rem;
+    height: 3rem;
+    text-align: center;
+  }

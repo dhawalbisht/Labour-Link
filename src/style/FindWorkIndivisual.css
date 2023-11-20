@@ -4,6 +4,12 @@
     line-height: 1.13rem;
     font-weight: 600;
   }
+  .uploadinputlabels {
+    align-self: stretch;
+    position: relative;
+    line-height: 1.5rem;
+    font-weight: 600;
+  }
   
   
   .input-field,
@@ -106,7 +112,7 @@
   
   .button--container {
     position: absolute;
-    top: 29rem;
+    top: 28.5rem;
     font-size: 2rem;
   }
   
@@ -127,4 +133,8 @@
   .particlebg{
     margin-left: -8rem;
     margin-top: -7rem;
+  }
+
+  h3 {
+    color:  rgb(0, 0, 0);
   }

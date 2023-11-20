@@ -108,7 +108,7 @@
   
   .button---container {
     position: absolute;
-    top: 28.7rem;
+    top: 28.5rem;
     left: 0rem;
     font-size: 2rem;
   }
@@ -130,4 +130,7 @@
   .particlebg{
     margin-left: -8rem;
     margin-top: -7rem;
+  }
+  h3 {
+    color:  rgb(0, 0, 0);
   }
