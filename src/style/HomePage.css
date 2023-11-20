@@ -93,10 +93,10 @@ color: #000000;
 }
 .right-image1{
 
-display:flex;
+display:absolute;
 justify-content: center;
-margin-top: 5%;
-margin-right: 5%;
+margin-top: 14%;
+margin-right: 12%;
 justify-content: space-between;
 flex-direction: row;
 /* box-shadow: 0 4px 4px rgba(0, 0, 0.50, 0.25); */
@@ -126,7 +126,7 @@ top: 25px;
 font-family: 'Montserrat';
 font-size: 26px;
 font-weight: 600;
-background: linear-gradient(180deg, #FFC815 81.25%, #E2AF07 100%, #FFC815 100%);
+background: linear-gradient(to bottom right, #FFC815 50% , #ffb700 );
 border-radius: 30px;
 
 }
