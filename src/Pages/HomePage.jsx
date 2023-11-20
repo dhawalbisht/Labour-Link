@@ -45,9 +45,9 @@ export default function HomePage({ isLogin, setIsLogin }) {
           </a>
         </div>
         <div className="right-image1">
-          <img className="hello" height="550px" width="600px" src="./assets/img.png" >
+        <Karousel />
 
-          </img>
+          
         </div>
       </div>
       <div className="Rectangle8">
@@ -116,7 +116,7 @@ export default function HomePage({ isLogin, setIsLogin }) {
         <br />
         <br />
         <br />
-        <Karousel />
+        
         <br />
         <br />
         <br />
