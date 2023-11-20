@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom'
 import FindWork from './FindWork'
 import SearchPage from './SearchPage'
 import Agency from './FindWorkAgency'
+import PostRegistration from './PostRegistration'
 
 import Indivisual from './FindWorkIndivisual'
 
@@ -19,6 +20,7 @@ export default function App() {
                 <Route path="/hire" element={<SearchPage />}></Route>
                 <Route path="/agency" element={<Agency />}></Route>
                 <Route path="/indivisual" element={<Indivisual />}></Route>
+                <Route path="/postregistration" element={<PostRegistration />}></Route>
             </Routes >
         </>
     )

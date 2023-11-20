@@ -140,7 +140,7 @@ export default function Agency() {
       email: "",
       password: "",
       confirmpassword: "",
-      phone: "",
+      agencyphone: "",
       gstin: "",
     };
 
@@ -189,10 +189,10 @@ export default function Agency() {
 
     setFormError(inputError);
 
-    if (!formInput.phone || formInput.phone.length !== 10) {
+    if (!formInput.agencyphone || formInput.agencyphone.length !== 10) {
       setFormError({
         ...inputError,
-        phone: "Phone number should be 10 digits",
+        agencyphone: "Phone number should be 10 digits",
       });
       return;
     }
@@ -212,7 +212,7 @@ export default function Agency() {
       console.log("File validation failed");
       return;
     }
-    window.location.href = "/";
+    window.location.href = "/postregistration";
   };
 
   const [selectedFile, setSelectedFile] = useState(null);
@@ -286,6 +286,21 @@ export default function Agency() {
                   />
                 </PasswordToggle>
               </div>
+              <div className="inputframe">
+                <div className="inputlabels">Phone no.</div>
+                <input
+                  required
+                  type="tel"
+                  className="input-field"
+                  name="agencyphone"
+                  placeholder="Enter phone no."
+                  value={formInput.agencyphone}
+                  onChange={({ target }) => {
+                    handleUserInput(target.name, target.value);
+                  }}
+                />
+                <p className="error-message">{formError.agencyphone}</p>
+              </div>
             </div>
             <div className="column--2">
               <div className="inputframe">
@@ -327,21 +342,7 @@ export default function Agency() {
                 </select>
                 <p className="error-message">{formError.city}</p>
               </div>
-              <div className="inputframe">
-                <div className="inputlabels">Phone no.</div>
-                <input
-                  required
-                  type="tel"
-                  className="input-field"
-                  name="phone"
-                  placeholder="Enter phone no."
-                  value={formInput.phone}
-                  onChange={({ target }) => {
-                    handleUserInput(target.name, target.value);
-                  }}
-                />
-                <p className="error-message">{formError.phone}</p>
-              </div>
+              
 
               <div className="inputframe">
                 <div className="inputlabels">Agency GSTIN number</div>
@@ -359,7 +360,7 @@ export default function Agency() {
                 <p className="error-message">{formError.gstin}</p>
               </div>
               <div className="inputframe">
-                <div className="inputlabels">Upload Document</div>
+                <div className="inputlabels"><h3>Upload Police Verification Document</h3></div>
                 <input
                   type="file"
                   accept=".pdf, .docx, .png, .jpeg, .jpg"

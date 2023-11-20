@@ -83,38 +83,33 @@ PasswordToggle.defaultProps = {
 
 export default function Indivisual() {
 
+  const handleFileChange = (e, fieldName) => {
+    const file = e.target.files[0];
+    const maxSize = fieldName === 'facephoto' ? 3 * 1024 * 1024 : 5 * 1024 * 1024; // 3MB for facephoto, 5MB for policedocument
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    setSelectedFile(file);
+    if (file) {
+      const fileSize = file.size;
+
+      if (fileSize > maxSize) {
+        setFileSizeError({
+          ...fileSizeError,
+          [fieldName]: `File size should be less than ${maxSize / (1024 * 1024)} MB`,
+        });
+      } else {
+        setFileSizeError({
+          ...fileSizeError,
+          [fieldName]: "",
+        });
+
+        if (fieldName === 'facephoto') {
+          setPhotoFileSize(fileSize);
+        } else if (fieldName === 'policedocument') {
+          setPoliceFileSize(fileSize);
+        }
+      }
+    }
   };
 
-  const validateFile = () => {
-    if (!selectedFile) {
-      setFormError({
-        ...formError,
-        file: "Please select a file",
-      });
-      return false;
-    }
-
-    const maxFileSize = 5 * 1024 * 1024;
-
-    if (selectedFile.size > maxFileSize) {
-      setFormError({
-        ...formError,
-        file: "File size exceeds the limit (5 MB)",
-      });
-      return false;
-    }
-
-    setFormError({
-      ...formError,
-      file: "",
-    });
-
-    return true;
-  };
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -192,212 +187,230 @@ export default function Indivisual() {
 
     setFormError(inputError);
 
-    if (!formInput.phone || formInput.phone.length !== 10) {
-      setFormError({
-        ...inputError,
-        phone: "Phone number should be 10 digits",
+    if (photoFileSize === 0 || photoFileSize > 3 * 1024 * 1024) {
+      setFileSizeError({
+        ...fileSizeError,
+        facephoto: "Upload a photo with size less than 3MB",
       });
       return;
     }
-
-    if (!formInput.aadhaar || formInput.aadhaar.length !== 12) {
-      setFormError({
-        ...inputError,
-        aadhaar: "Aadhaar number should be 12 digits",
+  
+    if (policeFileSize === 0 || policeFileSize > 5 * 1024 * 1024) {
+      setFileSizeError({
+        ...fileSizeError,
+        policedocument: "Upload a police verification document with size less than 5MB",
       });
       return;
     }
+  
+    // Reset file size errors if they are within limits
+    setFileSizeError({
+      facephoto: "",
+      policedocument: "",
+    });
 
-    const isFileValid = validateFile();
+  window.location.href = "/postregistration";
+};
 
-    if (!isFileValid) {
-      // Display error message for file validation
-      console.log("File validation failed");
-      return;
-    }
-    window.location.href = "/";
-  };
+const [photoFileSize, setPhotoFileSize] = useState(0);
+const [policeFileSize, setPoliceFileSize] = useState(0);
+const [fileSizeError, setFileSizeError] = useState({
+  facephoto: "",
+  policedocument: "",
+});
 
-  const [selectedFile, setSelectedFile] = useState(null);
-
-
-
-  return (
-    <>
-      <Navbar />
-      <div className="back">
-        <b className="pageheading">
-          Please fill out the following details for registration.
-        </b>
-        <form onSubmit={validateFormInput}>
-          <div className="columns">
-            <div className="column11">
-              <div className="inputframe">
-                <div className="inputlabels">Full Name</div>
-                <input required type="text" className="input-field" name="name" placeholder='Enter Name' />
-              </div>
-              <div className="inputframe">
-                <div className="inputlabels">Email ID</div>
-                <input
-                  value={formInput.email}
-                  onChange={({ target }) => {
-                    handleUserInput(target.name, target.value);
-                  }}
-                  name="email"
-                  type="text"
-                  className="input-field"
-                  placeholder="Enter Email"
-                />
-                <p className="error-message">{formError.email}</p>
-              </div>
-              <div className="inputframe">
-                <div className="inputlabels">Choose a password</div>
-                <input
-                  value={formInput.password}
-                  onChange={({ target }) => {
-                    handleUserInput(target.name, target.value);
-                  }}
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  className="input-field"
-                  placeholder="Password"
-                />
-                <p className="error-message">{formError.password}</p>
-              </div>
-              <div className="inputframe">
-                <div className="input-text-label">Confirm password</div>
-                <input
-                  value={formInput.confirmpassword}
-                  onChange={({ target }) => {
-                    handleUserInput(target.name, target.value);
-                  }}
-                  name="confirmpassword"
-                  type="password"
-                  className="input-field"
-                  placeholder="Confirm Password"
-                />
-                <p className="error-message">{formError.confirmpassword}</p>
-                <PasswordToggle
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  <img height={"25rem"} width={"25rem"}
-                    src={showPassword ? "../assets/show.png" : "../assets/hide.png"}
-                    alt={showPassword ? "Show Password" : "Hide Password"}
-                  />
-                </PasswordToggle>
-              </div>
-
+return (
+  <>
+    <Navbar />
+    <div className="back">
+      <b className="pageheading">
+        Please fill out the following details for registration.
+      </b>
+      <form onSubmit={validateFormInput}>
+        <div className="columns">
+          <div className="column11">
+            <div className="inputframe">
+              <div className="inputlabels">Full Name</div>
+              <input required type="text" className="input-field" name="name" placeholder='Enter Name' />
             </div>
-            <div className="column22">
-              <div className="inputframe">
-                <div className="inputlabels">Phone no.</div>
-                <input
-                  required
-                  type="tel"
-                  className="input-field"
-                  name="phone"
-                  placeholder="Enter phone no."
-                  value={formInput.phone}
-                  onChange={({ target }) => {
-                    handleUserInput(target.name, target.value);
-                  }}
+            <div className="inputframe">
+              <div className="inputlabels">Email ID</div>
+              <input
+                value={formInput.email}
+                onChange={({ target }) => {
+                  handleUserInput(target.name, target.value);
+                }}
+                name="email"
+                type="text"
+                className="input-field"
+                placeholder="Enter Email"
+              />
+              <p className="error-message">{formError.email}</p>
+            </div>
+            <div className="inputframe">
+              <div className="inputlabels">Choose a password</div>
+              <input
+                value={formInput.password}
+                onChange={({ target }) => {
+                  handleUserInput(target.name, target.value);
+                }}
+                name="password"
+                type={showPassword ? "text" : "password"}
+                className="input-field"
+                placeholder="Password"
+              />
+              <p className="error-message">{formError.password}</p>
+            </div>
+            <div className="inputframe">
+              <div className="input-text-label">Confirm password</div>
+              <input
+                value={formInput.confirmpassword}
+                onChange={({ target }) => {
+                  handleUserInput(target.name, target.value);
+                }}
+                name="confirmpassword"
+                type="password"
+                className="input-field"
+                placeholder="Confirm Password"
+              />
+              <p className="error-message">{formError.confirmpassword}</p>
+              <PasswordToggle
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                <img height={"25rem"} width={"25rem"}
+                  src={showPassword ? "../assets/show.png" : "../assets/hide.png"}
+                  alt={showPassword ? "Show Password" : "Hide Password"}
                 />
-                <p className="error-message">{formError.phone}</p>
-              </div>
+              </PasswordToggle>
+            </div>
+            <div className="inputframe">
+              <div className="inputlabels">Phone no.</div>
+              <input
+                required
+                type="tel"
+                className="input-field"
+                name="phone"
+                placeholder="Enter phone no."
+                value={formInput.phone}
+                onChange={({ target }) => {
+                  handleUserInput(target.name, target.value);
+                }}
+              />
+              <p className="error-message">{formError.phone}</p>
+            </div>
+          </div>
+          <div className="column22">
 
-              <div className="inputframe">
-                <div className="inputlabels">Aadhaar Card Number</div>
-                <input
-                  required
-                  type="tel"
-                  className="input-field"
-                  name="aadhaar"
-                  placeholder="Aadhaar"
-                  value={formInput.aadhaar}
-                  onChange={({ target }) => {
-                    handleUserInput(target.name, target.value);
-                  }}
-                />
-                <p className="error-message">{formError.aadhaar}</p>
-              </div>
-              <div className="inputframe">
-                <div className="inputlabels">State</div>
-                <select
-                  required
-                  className="input-field"
-                  name="state"
-                  onChange={({ target }) => {
-                    handleUserInput(target.name, target.value);
-                  }}
-                >
-                  <option value="">Select State</option>
-                  {indianStates.map((state) => (
-                    <option key={state} value={state}>
-                      {state}
+
+            <div className="inputframe">
+              <div className="inputlabels">Aadhaar Card Number</div>
+              <input
+                required
+                type="tel"
+                className="input-field"
+                name="aadhaar"
+                placeholder="Aadhaar"
+                value={formInput.aadhaar}
+                onChange={({ target }) => {
+                  handleUserInput(target.name, target.value);
+                }}
+              />
+              <p className="error-message">{formError.aadhaar}</p>
+            </div>
+            <div className="inputframe">
+              <div className="inputlabels">State</div>
+              <select
+                required
+                className="input-field"
+                name="state"
+                onChange={({ target }) => {
+                  handleUserInput(target.name, target.value);
+                }}
+              >
+                <option value="">Select State</option>
+                {indianStates.map((state) => (
+                  <option key={state} value={state}>
+                    {state}
+                  </option>
+                ))}
+              </select>
+              <p className="error-message">{formError.state}</p>
+            </div>
+            <div className="inputframe">
+              <div className="inputlabels">City</div>
+              <select
+                required
+                className="input-field"
+                name="city"
+                onChange={({ target }) => {
+                  handleUserInput(target.name, target.value);
+                }}
+              >
+                <option value="">Select City</option>
+                {formInput.state &&
+                  indianCities[formInput.state].map((city) => (
+                    <option key={city} value={city}>
+                      {city}
                     </option>
                   ))}
-                </select>
-                <p className="error-message">{formError.state}</p>
+              </select>
+              <p className="error-message">{formError.city}</p>
+            </div>
+            <div className="inputframe">
+              <div className="uploadinputlabels">
+                <h3>Upload your photo (Face clearly visible)</h3>
               </div>
-              <div className="inputframe">
-                <div className="inputlabels">City</div>
-                <select
-                  required
-                  className="input-field"
-                  name="city"
-                  onChange={({ target }) => {
-                    handleUserInput(target.name, target.value);
-                  }}
-                >
-                  <option value="">Select City</option>
-                  {formInput.state &&
-                    indianCities[formInput.state].map((city) => (
-                      <option key={city} value={city}>
-                        {city}
-                      </option>
-                    ))}
-                </select>
-                <p className="error-message">{formError.city}</p>
-              </div>
-              <div className="inputframe">
-                <div className="inputlabels">Upload Document</div>
-                <input
-                  type="file"
-                  accept=".pdf, .docx, .png, .jpeg, .jpg"
-                  onChange={handleFileChange}
-                />
-                <p className="error-message">{formError.file}</p>
-              </div>
-              <div className="inputframe">
-                <div className="button--container">
-                  <div className="button--child"></div>
-
-                  <Button type="submit" style={{ fontFamily: "Montserrat" }}>
-                    Register
-                  </Button>
-
-                </div>
-              </div>
+              <input
+                name="facephoto"
+                type="file"
+                accept=".png, .jpeg"
+                onChange={(e) => handleFileChange(e, 'facephoto')}
+              />
+              <p className="error-message">{fileSizeError.facephoto}</p>
             </div>
 
-          </div>
-          <div className="column33">
-            <div className="particlecontainer">
-              <div className="particles">
-                <Logo />
+            <div className="inputframe">
+              <div className="uploadinputlabels">
+                <h3>Upload Police Verification Document</h3>
               </div>
-              <div className="particlebg">
-                <img width="650px" src="../assets/particlelogobg.png"></img>
+              <input
+                name="policedocument"
+                type="file"
+                accept=".pdf, .docx, .png, .jpeg, .jpg"
+                onChange={(e) => handleFileChange(e, 'policedocument')}
+              />
+              <p className="error-message">{fileSizeError.policedocument}</p>
+            </div>
+            <div className="inputframe">
+              <div className="button--container">
+                <div className="button--child"></div>
+
+                <Button type="submit" style={{ fontFamily: "Montserrat" }}>
+                  Register
+                </Button>
+
               </div>
             </div>
           </div>
-        </form>
-      </div>
-      <div className="bottom">
 
-      </div>
-      <Footer />
-    </>
-  );
+        </div>
+        <div className="column33">
+          <div className="particlecontainer">
+            <div className="particles">
+              <Logo />
+            </div>
+            <div className="particlebg">
+              <img width="650px" src="../assets/particlelogobg.png"></img>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div className="bottom">
+
+    </div>
+    <Footer />
+  </>
+);
 }
