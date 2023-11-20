@@ -64,7 +64,7 @@ export default function FindWork() {
             <div className="options">
                 <div className="indivisual">
                     <div className="image"><img height="195rem" width="260rem" src='./assets/indivisual.png'></img></div>
-                    <div className="box"></div>
+                    <div className="boxx"></div>
                     <div className="apply-as-an">apply as an</div>
                     <div className="button-container">
                         <div className="button-child"></div>
@@ -76,7 +76,7 @@ export default function FindWork() {
                 <b className="or">or</b>
                 <div className="agency">
                     <div className="image"><img height="195rem" width="260rem" src='./assets/agency.png'></img></div>
-                    <div className="box"></div>
+                    <div className="boxx"></div>
                     <div className="apply-as-an">apply as an</div>
                     <div className="container">
                         <div className="containerchild"></div>
