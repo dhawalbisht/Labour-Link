@@ -15,7 +15,6 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
 // import { Margin } from '@mui/icons-material';
 // import SearchPage from '../Pages/SearchPage';
-import FindWork from '../Pages/FindWork';
 
 const linkStyles = {
   textDecoration: 'none',
@@ -148,7 +147,7 @@ function ResponsiveAppBar({ isLogin, setIsLogin }) {
               >
                 Hire
               </Button></a>
-              <Link to='/findwork' style={linkStyles}>
+              <Link to='/indivisual' style={linkStyles}>
                 <Button
                   // onClick={() => { console.log('hello world') }}
                   sx={{ my: 2, color: 'black', fontWeight:'600', display: 'block', marginLeft: 10 }}
