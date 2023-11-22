@@ -5,7 +5,7 @@ import { Link } from "@mui/material";
 import Karousel from "../components/Karousel";
 import Footer from "../Pages/Footer";
 import Write from "../components/Typewrite";
-import FindWork from "./FindWork";
+
 import shadows from "@mui/material/styles/shadows";
 
 

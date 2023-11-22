@@ -301,9 +301,17 @@ return (
             </div>
           </div>
           <div className="column22">
-
+          <div className="inputframe">
+              <div className="inputlabels">Designation(Work)</div>
+              <input required type="text" className="input-field" name="designation" placeholder='Enter your designation' />
+            </div>
+            <div className="inputframe">
+              <div className="inputlabels">Min. Service Charge (INR - ₹)</div>
+              <input required type="tel" className="input-field" name="charge" placeholder='Your min. service charge' />
+            </div>
 
             <div className="inputframe">
+              
               <div className="inputlabels">Aadhaar Card Number</div>
               <input
                 required
