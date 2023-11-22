@@ -4,12 +4,6 @@
     line-height: 1.13rem;
     font-weight: 600;
   }
-  .uploadinputlabels {
-    align-self: stretch;
-    position: relative;
-    line-height: 1.5rem;
-    font-weight: 600;
-  }
   
   
   .input-field,
@@ -40,16 +34,15 @@
     gap: 0.2rem;
   }
   
-  .column33 {
+  .column--3 {
     position: absolute;
     top: 8rem;
-    left: 64rem;
+    left: 12rem;
     width: 35rem;
     height: 35rem;
     
   }
-
-  .column22 {
+  .column--2 {
     position: absolute;
     top: 2.5rem;
     left: 26.56rem;
@@ -60,8 +53,12 @@
     justify-content: center;
     gap: 1rem;
   }
- 
-  .column11 {
+  .passwordlength {
+    align-self: stretch;
+    position: relative;
+    line-height: 1.13rem;
+  }
+  .column--1 {
     position: absolute;
     top: 2.5rem;
     left: 2.56rem;
@@ -72,18 +69,18 @@
     justify-content: center;
     gap: 1rem;
   }
-  .columns {
+  .columnss {
     position: absolute;
     top: 5rem;
-    left: 5rem;
+    left: 52rem;
     width: 46.38rem;
-    height: 48rem;
+    height: 44rem;
     overflow: hidden;
   }
-  .pageheading {
+  .pageheadingg {
     position: absolute;
     top: 3rem;
-    left: 7.25rem;
+    left: 54.25rem;
     font-size: 1.5rem;
     display: inline-block;
     font-family: Montserrat;
@@ -91,28 +88,28 @@
     width: 40.31rem;
     height: 1.81rem;
   }
-  .back {
+  .backk {
     position: relative;
     background-color: #e6e6e6;
     width: 100%;
-    height: 58rem;
+    height: 46rem;
     overflow: hidden;
     text-align: left;
     font-size: 0.75rem;
     color: #666;
     font-family: "Montserrat";
+    
   }
-  
-  .button--child {
+  .button---child {
     position: absolute;
     top: -7rem;
-    /* left:5rem; */
     border-radius: 16px;
   }
   
-  .button--container {
+  .button---container {
     position: absolute;
-    top: 39.5rem;
+    top: 19rem;
+    left: 0rem;
     font-size: 2rem;
   }
   
@@ -134,7 +131,6 @@
     margin-left: -8rem;
     margin-top: -7rem;
   }
-
   h3 {
     color:  rgb(0, 0, 0);
   }
