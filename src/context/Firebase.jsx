@@ -64,8 +64,7 @@ export const FirebaseProvider = (props) => {
     getLabourData();
     const unsubscribe = onAuthStateChanged(firebaseAuth, async (u) => {
       if (u) {
-        console.log("User Logged In", u);
-        console.log(u.phoneNumber);
+        console.log("User Logged In");
         const q = query(
           collection(firestore, "users"),
           where("phone", "==", u.phoneNumber)
@@ -75,7 +74,6 @@ export const FirebaseProvider = (props) => {
           querySnapShot.forEach((doc) => {
             const userData = doc.data();
             setUser(userData);
-            console.log("LoggedIn User Data :", userData);
           });
         }
       } else {
@@ -97,7 +95,6 @@ export const FirebaseProvider = (props) => {
     const querySnapShot = await getDocs(q);
 
     if (!querySnapShot.empty) {
-      console.log(querySnapShot.docs.length);
       return;
     }
 
@@ -105,13 +102,11 @@ export const FirebaseProvider = (props) => {
     const storageRef = ref(storage, `labour_pfp/${key}_${uuid4()}`);
     const imageSnapshot = await uploadBytes(storageRef, imageFile);
     const imageURL = await getDownloadURL(imageSnapshot.ref);
-    console.log(imageURL);
 
     // store labor document
     const docStorageRef = ref(storage, `labour_document/doc-${key}${docType}`);
     const docSnapShot = await uploadBytes(docStorageRef, doc);
     const docURL = await getDownloadURL(docSnapShot.ref);
-    console.log(docURL);
 
     // get users location data
     let location = null;
@@ -147,13 +142,11 @@ export const FirebaseProvider = (props) => {
       lon: location ? location.lon : null,
     });
     localStorage.setItem("labour_id", key);
-    console.log(result);
     return result;
   };
 
   const userRegistration = async (key, data) => {
     const { email, phone } = data;
-    console.log(email, phone);
     const q = query(
       collection(firestore, "users"),
       or(where("email", "==", email), where("phone", "==", phone))
@@ -193,7 +186,6 @@ export const FirebaseProvider = (props) => {
           result
             .confirm(userOtpInput)
             .then((result) => {
-              console.log(result.user);
               resolve();
               return result.user;
             })

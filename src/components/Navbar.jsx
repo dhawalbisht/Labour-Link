@@ -133,8 +133,6 @@ function ResponsiveAppBar({ isLogin, setIsLogin }) {
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               <a href="/" style={{ textDecoration: "none" }}>
                 <Button
-                  // key={page}
-                  // onClick={() => { console.log('hello world') }}
                   sx={{
                     my: 2,
                     color: "black",
@@ -148,8 +146,6 @@ function ResponsiveAppBar({ isLogin, setIsLogin }) {
               </a>
               <a href="/hire" style={{ textDecoration: "none" }}>
                 <Button
-                  // key={page}
-                  // onClick={() => { console.log('hello world') }}
                   sx={{
                     my: 2,
                     color: "black",
@@ -163,7 +159,6 @@ function ResponsiveAppBar({ isLogin, setIsLogin }) {
               </a>
               <Link to="/indivisual" style={linkStyles}>
                 <Button
-                  // onClick={() => { console.log('hello world') }}
                   sx={{
                     my: 2,
                     color: "black",

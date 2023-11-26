@@ -67,7 +67,7 @@ const sendEmailToLabour = async (
       "v7pt3-_zDfaVn6JoN"
     )
     .then((result) => {
-      console.log(`Email sent to ${toEmail}`, result.text);
+      console.log(`Email sent`, result.text);
     })
     .catch((err) => {
       console.log(err.text);
@@ -86,7 +86,7 @@ const sendEmailToUser = async (
   await emailjs
     .send(
       "service_h4fwbhe",
-      "template_ry2968n", // invalid template_id, needs to be fixed
+      "template_ry2968n",
       {
         to_email: toEmail,
         to_name: toName,
@@ -99,7 +99,7 @@ const sendEmailToUser = async (
       "v7pt3-_zDfaVn6JoN"
     )
     .then((result) => {
-      console.log(`Email sent to ${toEmail}`, result.text);
+      console.log(`Email sent`, result.text);
     })
     .catch((err) => {
       console.log(err.text);
@@ -112,7 +112,7 @@ const Labour = (data) => {
 
   const paymentHandle = () => {
     if (!user) {
-      console.log("no users");
+      console.log("no user");
       navigate("/login");
     } else {
       console.log("user exists, proceding to payment....");

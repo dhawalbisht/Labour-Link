@@ -204,7 +204,6 @@ export default function Agency() {
       showToast("User already Registered");
     }
     setIsLoading(false);
-    console.log(formInput);
   };
   const [toastIsActive, setToastIsActive] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);

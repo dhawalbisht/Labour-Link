@@ -132,11 +132,9 @@ export default function Indivisual() {
     }
     if (fieldName == "facephoto") {
       setLabourPhoto(file);
-      console.log(file);
     }
     if (fieldName == "policedocument") {
       setLabourDoc(file);
-      console.log(file);
     }
   };
 
@@ -274,7 +272,6 @@ export default function Indivisual() {
         fileType = ".jpg";
       }
     }
-    console.log(formInput, JSON.stringify(formInput));
     const signupResult = await firebase.putData(
       generateUniqueId(),
       formInput,

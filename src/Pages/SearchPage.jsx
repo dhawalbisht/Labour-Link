@@ -24,9 +24,6 @@ export default function SearchPage() {
     };
     navigator.geolocation.getCurrentPosition(successHandler, errorHandler);
   }, []);
-  useEffect(() => {
-    console.log(userLocation);
-  }, [userLocation]);
 
   const calculateDistance = (lat1, lon1, lat2, lon2) => {
     const R = 6371;
@@ -56,7 +53,6 @@ export default function SearchPage() {
       }))
       .sort((a, b) => a.distance - b.distance);
     setLabours(sortedLaborList);
-    console.log(labours);
   };
 
   const wagesSort = (sortType) => {
@@ -68,7 +64,6 @@ export default function SearchPage() {
       }
     });
     setLabours([...sortedLaborList]);
-    console.log(labours);
   };
 
   return (
