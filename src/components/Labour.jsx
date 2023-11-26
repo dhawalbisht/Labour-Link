@@ -138,8 +138,7 @@ const Labour = (data) => {
         );
         // Send Email From here
       };
-      // DisplayRazopay(data.data.charge, onPaymentSuccess);
-      onPaymentSuccess("temp_payment_id");
+      DisplayRazopay(data.data.charge, onPaymentSuccess);
     }
     // Send Message here
   };
