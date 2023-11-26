@@ -8,11 +8,10 @@ import Write from "../components/Typewrite";
 
 import shadows from "@mui/material/styles/shadows";
 
-
-export default function HomePage({ isLogin, setIsLogin }) {
+export default function HomePage() {
   return (
     <>
-      <Navbar isLogin={isLogin} setIsLogin={setIsLogin} />
+      <Navbar />
 
       <div className="block1">
         <div className="row-1 row"></div>
@@ -35,7 +34,7 @@ export default function HomePage({ isLogin, setIsLogin }) {
           </p>
         </div>
         <div>
-          <a href="/findwork">
+          <a href="/indivisual">
             <button className="button-1">
               Register for Work!
               {/* <Link src="LoginPage" className="register">
@@ -45,9 +44,7 @@ export default function HomePage({ isLogin, setIsLogin }) {
           </a>
         </div>
         <div className="right-image1">
-        <Karousel />
-
-          
+          <Karousel />
         </div>
       </div>
       <div className="Rectangle8">
@@ -58,10 +55,14 @@ export default function HomePage({ isLogin, setIsLogin }) {
           muted
           width="100%"
           height="100%"
-          repeat
+          repeat="true"
         ></video>
         <div className="textblock">
-          <h2 className="text-3"><p><span style={{ backgroundColor: '#32173B' }}>⠀OUR AIM⠀</span></p></h2>
+          <h2 className="text-3">
+            <p>
+              <span style={{ backgroundColor: "#32173B" }}>⠀OUR AIM⠀</span>
+            </p>
+          </h2>
           <p className="text-4">
             The website aims to bridge the gap between job seekers and employers
             by providing a centralized platform where they can connect and
@@ -116,7 +117,7 @@ export default function HomePage({ isLogin, setIsLogin }) {
         <br />
         <br />
         <br />
-        
+
         <br />
         <br />
         <br />
