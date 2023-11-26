@@ -3,9 +3,12 @@ import { useState } from "react";
 import Navbar from "../components/Navbar";
 import "../style/UserProfileSetup.css";
 import styled from "styled-components";
-import Footer from './Footer'
-import { indianStates, indianCities } from '../database/statesandcities';
+import Footer from "./Footer";
+import { indianStates, indianCities } from "../database/statesandcities";
 import Logo from "../components/llparticlelogo";
+import { v4 as uuid4 } from "uuid";
+import { useFirebase } from "../context/Firebase";
+import { Navigate } from "react-router-dom";
 
 const theme = {
   yellow: {
@@ -15,7 +18,11 @@ const theme = {
 };
 
 const Button = styled.button`
-  background: linear-gradient(to bottom right, #FFC815 50% , #ffb700 ); /* Use your preferred yellow-orange color codes */
+  background: linear-gradient(
+    to bottom right,
+    #ffc815 50%,
+    #ffb700
+  ); /* Use your preferred yellow-orange color codes */
   color: black;
   padding: 5px 15px;
   width: 16.3rem;
@@ -34,7 +41,11 @@ const Button = styled.button`
   transition: ease background 250ms;
 
   &:hover {
-    background: linear-gradient(to bottom right, #f0bc15, #edaa00 140%); /* Use your preferred hover colors */
+    background: linear-gradient(
+      to bottom right,
+      #f0bc15,
+      #edaa00 140%
+    ); /* Use your preferred hover colors */
   }
 
   &:disabled {
@@ -78,53 +89,28 @@ PasswordToggle.defaultProps = {
   theme: "yellow",
 };
 
-
 export default function Agency() {
-
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    setSelectedFile(file);
-  };
-
-  const validateFile = () => {
-    if (!selectedFile) {
-      setFormError({
-        ...formError,
-        file: "Please select a file",
-      });
-      return false;
-    }
-
-    const maxFileSize = 5 * 1024 * 1024;
-
-    if (selectedFile.size > maxFileSize) {
-      setFormError({
-        ...formError,
-        file: "File size exceeds the limit (5 MB)",
-      });
-      return false;
-    }
-
-    setFormError({
-      ...formError,
-      file: "",
-    });
-
-    return true;
-  };
-
+  const firebase = useFirebase();
+  const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const [formInput, setFormInput] = useState({
-    agencyemail: "",
+    email: "",
     password: "",
     confirmpassword: "",
+    name: "",
+    address: "",
+    state: "",
+    city: "",
+    phone: "",
   });
 
   const [formError, setFormError] = useState({
-    agencyemail: "",
+    email: "",
     password: "",
     confirmpassword: "",
+    agencyphone: "",
+    gstin: "",
   });
 
   const handleUserInput = (name, value) => {
@@ -134,14 +120,14 @@ export default function Agency() {
     });
   };
 
-  const validateFormInput = (event) => {
+  const validateFormInput = async (event) => {
+    setIsLoading(true);
     event.preventDefault();
     let inputError = {
       email: "",
       password: "",
       confirmpassword: "",
-      agencyphone: "",
-      gstin: "",
+      phone: "",
     };
 
     if (!formInput.email && !formInput.password) {
@@ -150,7 +136,8 @@ export default function Agency() {
         email: "Enter valid email address",
         password: "Password should not be empty",
       });
-      return
+      setIsLoading(false);
+      return;
     }
 
     if (!formInput.email) {
@@ -158,7 +145,8 @@ export default function Agency() {
         ...inputError,
         email: "Enter valid email address",
       });
-      return
+      setIsLoading(false);
+      return;
     }
 
     if (formInput.confirmpassword !== formInput.password) {
@@ -166,6 +154,7 @@ export default function Agency() {
         ...inputError,
         confirmpassword: "Password and confirm password should be same",
       });
+      setIsLoading(false);
       return;
     }
 
@@ -174,66 +163,88 @@ export default function Agency() {
         ...inputError,
         password: "Password should not be empty",
       });
-      return
+      setIsLoading(false);
+      return;
     }
 
-    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{6,}$/;
+    const passwordRegex =
+      /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]{6,}$/;
     if (!passwordRegex.test(formInput.password)) {
       setFormError({
         ...inputError,
         password:
           "Password should have a minimum of 6 characters, at least one capital letter, at least one digit, and at least one special character",
       });
+      setIsLoading(false);
       return;
     }
-
-    setFormError(inputError);
-
-    if (!formInput.agencyphone || formInput.agencyphone.length !== 10) {
+    if (formInput.phone.length !== 10 || !/^\d+$/.test(formInput.phone)) {
       setFormError({
         ...inputError,
-        agencyphone: "Phone number should be 10 digits",
+        phone: "Enter a valid Phone Number",
       });
+      setIsLoading(false);
       return;
     }
-
-    if (!formInput.gstin || formInput.gstin.length !== 15) {
-      setFormError({
-        ...inputError,
-        gstin: "GSTIN number should be 15 digits",
-      });
-      return;
+    setFormError({
+      email: "",
+      password: "",
+      confirmpassword: "",
+      phone: "",
+      address: "",
+      city: "",
+      state: "",
+      name: "",
+    });
+    const registrationResult = await firebase.userRegistration(
+      uuid4(),
+      formInput
+    );
+    if (!registrationResult) {
+      showToast("User already Registered");
     }
-
-    const isFileValid = validateFile();
-
-    if (!isFileValid) {
-      // Display error message for file validation
-      console.log("File validation failed");
-      return;
-    }
-    window.location.href = "/postregistration";
+    setIsLoading(false);
+    console.log(formInput);
   };
-
-  const [selectedFile, setSelectedFile] = useState(null);
-
-
-
-
+  const [toastIsActive, setToastIsActive] = useState(false);
+  const [toastMessage, setToastMessage] = useState(null);
+  const showToast = (message) => {
+    setToastMessage(message);
+    setToastIsActive(true);
+    setTimeout(() => {
+      setToastIsActive(false);
+      setToastMessage(null);
+    }, 3000);
+  };
+  if (firebase.user) {
+    return <Navigate to={"/"} />;
+  }
   return (
     <>
       <Navbar />
+      <div className="toast" hidden={!toastIsActive}>
+        <span>{toastMessage}</span>
+      </div>
       <div className="backk">
         <b className="pageheadingg">
           Please setup your profile before you continue.
         </b>
         <form onSubmit={validateFormInput}>
           <div className="columnss">
-
             <div className="column--1">
               <div className="inputframe">
                 <div className="inputlabels">Full Name</div>
-                <input required type="text" className="input-field" name="username" placeholder='Enter your full name' />
+                <input
+                  required
+                  type="text"
+                  className="input-field"
+                  name="name"
+                  placeholder="Enter your full name"
+                  value={formInput.name}
+                  onChange={({ target }) => {
+                    handleUserInput(target.name, target.value);
+                  }}
+                />
               </div>
               <div className="inputframe">
                 <div className="inputlabels">Email</div>
@@ -280,15 +291,19 @@ export default function Agency() {
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  <img height={"25rem"} width={"25rem"}
-                    src={showPassword ? "../assets/show.png" : "../assets/hide.png"}
+                  <img
+                    height={"25rem"}
+                    width={"25rem"}
+                    src={
+                      showPassword ? "../assets/show.png" : "../assets/hide.png"
+                    }
                     alt={showPassword ? "Show Password" : "Hide Password"}
                   />
                 </PasswordToggle>
               </div>
             </div>
             <div className="column--2">
-            <div className="inputframe">
+              <div className="inputframe">
                 <div className="inputlabels">Address</div>
                 <input
                   required
@@ -296,7 +311,10 @@ export default function Agency() {
                   className="input-field"
                   name="address"
                   placeholder="House no. , Street"
-                  
+                  value={formInput.address}
+                  onChange={({ target }) => {
+                    handleUserInput(target.name, target.value);
+                  }}
                 />
                 <p className="error-message">{formError.gstin}</p>
               </div>
@@ -340,18 +358,32 @@ export default function Agency() {
                 <p className="error-message">{formError.city}</p>
               </div>
               <div className="inputframe">
-                <div className="button---container">
-                  <div className="button---child"></div>
-                  <a href="/">
-                    <Button style={{ fontFamily: "Montserrat" }}>
-                      Register
-                    </Button>
-                  </a>
+                <div className="inputlabels">Phone</div>
+                <input
+                  required
+                  type="text"
+                  className="input-field"
+                  name="phone"
+                  placeholder="Enter your Phone Number"
+                  value={formInput.phone}
+                  onChange={({ target }) => {
+                    handleUserInput(target.name, target.value);
+                  }}
+                />
+                <p className="error-message">{formError.phone}</p>
+              </div>
+              <div id="recaptcha-verifier"></div>
+              <div className="inputframe">
+                <div className="button---container" style={{}}>
+                  <Button type="submit" style={{ fontFamily: "Montserrat" }}>
+                    Register
+                  </Button>
+                  {isLoading && <span className="loader"></span>}
                 </div>
               </div>
             </div>
           </div>
-          <div className="column--3">
+          {/* <div className="column--3">
           <div className="particlecontainer">
               <div className="particles">
                 <Logo />
@@ -360,7 +392,7 @@ export default function Agency() {
                 <img width="650px" src="../assets/particlelogobg.png"></img>
               </div>
             </div>
-          </div>
+          </div> */}
         </form>
       </div>
       <Footer />

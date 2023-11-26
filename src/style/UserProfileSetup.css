@@ -1,136 +1,132 @@
 .inputlabels {
-    align-self: stretch;
-    position: relative;
-    line-height: 1.13rem;
-    font-weight: 600;
-  }
-  
-  
-  .input-field,
-  .text {
-    align-self: stretch;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-  }
-  .input-field {
-    border-radius: 0.5rem;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding: 1rem;
-    font-size: 1rem;
-  }
-  .inputframe {
-    align-self: stretch;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-  }
-  .inputframe {
-    display: flex;
-    gap: 0.2rem;
-  }
-  
-  .column--3 {
-    position: absolute;
-    top: 8rem;
-    left: 12rem;
-    width: 35rem;
-    height: 35rem;
-    
-  }
-  .column--2 {
-    position: absolute;
-    top: 2.5rem;
-    left: 26.56rem;
-    width: 16.31rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-  }
-  .passwordlength {
-    align-self: stretch;
-    position: relative;
-    line-height: 1.13rem;
-  }
-  .column--1 {
-    position: absolute;
-    top: 2.5rem;
-    left: 2.56rem;
-    width: 16.31rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-  }
-  .columnss {
-    position: absolute;
-    top: 5rem;
-    left: 52rem;
-    width: 46.38rem;
-    height: 44rem;
-    overflow: hidden;
-  }
-  .pageheadingg {
-    position: absolute;
-    top: 3rem;
-    left: 54.25rem;
-    font-size: 1.5rem;
-    display: inline-block;
-    font-family: Montserrat;
-    color: #000;
-    width: 40.31rem;
-    height: 1.81rem;
-  }
-  .backk {
-    position: relative;
-    background-color: #e6e6e6;
-    width: 100%;
-    height: 46rem;
-    overflow: hidden;
-    text-align: left;
-    font-size: 0.75rem;
-    color: #666;
-    font-family: "Montserrat";
-    
-  }
-  .button---child {
-    position: absolute;
-    top: -7rem;
-    border-radius: 16px;
-  }
-  
-  .button---container {
-    position: absolute;
-    top: 19rem;
-    left: 0rem;
-    font-size: 2rem;
-  }
-  
-  .error-message{
-    font-size: 0.7rem;
-    font-weight: 500;
-    color: red;
-    margin-top: 0.2rem;
-  }
+  align-self: stretch;
+  position: relative;
+  line-height: 1.13rem;
+  font-weight: 600;
+}
 
-  .particles{
- 
-    position: absolute;
-  }
-  .particlecontainer{
-    position: absolute;
-  }
-  .particlebg{
-    margin-left: -8rem;
-    margin-top: -7rem;
-  }
-  h3 {
-    color:  rgb(0, 0, 0);
-  }
+.input-field,
+.text {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.input-field {
+  border-radius: 0.5rem;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1rem;
+  font-size: 1rem;
+}
+.inputframe {
+  align-self: stretch;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.inputframe {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.column--3 {
+  position: absolute;
+  top: 8rem;
+  left: 12rem;
+  width: 35rem;
+  height: 35rem;
+}
+.column--2 {
+  position: absolute;
+  top: 2.5rem;
+  left: 26.56rem;
+  width: 16.31rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.passwordlength {
+  align-self: stretch;
+  position: relative;
+  line-height: 1.13rem;
+}
+.column--1 {
+  position: absolute;
+  top: 2.5rem;
+  left: 2.56rem;
+  width: 16.31rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.columnss {
+  position: absolute;
+  top: 5rem;
+  left: 52rem;
+  width: 46.38rem;
+  height: 44rem;
+  overflow: hidden;
+}
+.pageheadingg {
+  position: absolute;
+  top: 3rem;
+  left: 54.25rem;
+  font-size: 1.5rem;
+  display: inline-block;
+  font-family: Montserrat;
+  color: #000;
+  width: 40.31rem;
+  height: 1.81rem;
+}
+.backk {
+  position: relative;
+  background-color: #e6e6e6;
+  width: 100%;
+  height: 46rem;
+  overflow: hidden;
+  text-align: left;
+  font-size: 0.75rem;
+  color: #666;
+  font-family: "Montserrat";
+}
+.button---child {
+  top: -7rem;
+  border-radius: 16px;
+}
+
+.button---container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 2rem;
+}
+
+.error-message {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: red;
+  margin-top: 0.2rem;
+}
+
+.particles {
+  position: absolute;
+}
+.particlecontainer {
+  position: absolute;
+}
+.particlebg {
+  margin-left: -8rem;
+  margin-top: -7rem;
+}
+h3 {
+  color: rgb(0, 0, 0);
+}

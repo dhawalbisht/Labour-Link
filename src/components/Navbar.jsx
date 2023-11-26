@@ -1,30 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
+import React, { useEffect, useState } from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
 // import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 // import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import { Link } from 'react-router-dom';
+import MenuItem from "@mui/material/MenuItem";
+import AdbIcon from "@mui/icons-material/Adb";
+import { Link } from "react-router-dom";
+import { useFirebase } from "../context/Firebase";
 // import { Margin } from '@mui/icons-material';
 // import SearchPage from '../Pages/SearchPage';
 
 const linkStyles = {
-  textDecoration: 'none',
-  color: 'inherit',
+  textDecoration: "none",
+  color: "inherit",
 };
 
-const pages = ['Home', 'Hire', 'Find Work'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = ["Home", "Hire", "Find Work"];
+const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function ResponsiveAppBar({ isLogin, setIsLogin }) {
+  const { user, setUser, logOutUser } = useFirebase();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -43,14 +45,13 @@ function ResponsiveAppBar({ isLogin, setIsLogin }) {
     setAnchorElUser(null);
   };
 
-
-
-
+  const handleLogOut = () => {
+    logOutUser();
+  };
 
   return (
     <>
-
-      <AppBar position="static" sx={{ backgroundColor: '#f8be00' }}>
+      <AppBar position="static" sx={{ backgroundColor: "#f8be00" }}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
@@ -62,19 +63,19 @@ function ResponsiveAppBar({ isLogin, setIsLogin }) {
               href="/"
               sx={{
                 mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                fontFamily: 'monospace',
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
                 fontWeight: 700,
                 // letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
+                color: "inherit",
+                textDecoration: "none",
               }}
             >
-              <img src='./assets/ll.png' height='30px' width='30px'></img>
-              <p style={{color:'black'}}>⠀LabourLink</p>
+              <img src="./assets/ll.png" height="30px" width="30px"></img>
+              <p style={{ color: "black" }}>⠀LabourLink</p>
             </Typography>
 
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -89,18 +90,18 @@ function ResponsiveAppBar({ isLogin, setIsLogin }) {
                 id="menu-appbar"
                 anchorEl={anchorElNav}
                 anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
+                  vertical: "bottom",
+                  horizontal: "left",
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
+                  vertical: "top",
+                  horizontal: "left",
                 }}
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
                 sx={{
-                  display: { xs: 'block', md: 'none' },
+                  display: { xs: "block", md: "none" },
                 }}
               >
                 {pages.map((page) => (
@@ -110,7 +111,6 @@ function ResponsiveAppBar({ isLogin, setIsLogin }) {
                 ))}
               </Menu>
             </Box>
-           
 
             <Typography
               variant="h6"
@@ -119,62 +119,118 @@ function ResponsiveAppBar({ isLogin, setIsLogin }) {
               href="/"
               sx={{
                 mr: 2,
-                display: { xs: 'flex', md: 'none' },
+                display: { xs: "flex", md: "none" },
                 flexGrow: 1,
-                fontFamily: 'Montserrat',
+                fontFamily: "Montserrat",
                 fontWeight: 700,
-                color: 'inherit',
-                textDecoration: 'none',
+                color: "inherit",
+                textDecoration: "none",
               }}
             >
-              <p style={{color:'black'}}>⠀LabourLink</p>
+              <p style={{ color: "black" }}>⠀LabourLink</p>
             </Typography>
 
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              <a href='/' style={{textDecoration:'none'}}>
-              <Button
-                // key={page}
-                // onClick={() => { console.log('hello world') }}
-                sx={{ my: 2, color: 'black', fontWeight:'600', display: 'block', marginLeft: 10 }}
-              >
-                Home
-              </Button></a>
-              <a href='/hire' style={{textDecoration:'none'}}>
-              <Button
-                // key={page}
-                // onClick={() => { console.log('hello world') }}
-                sx={{ my: 2, color: 'black', fontWeight:'600', display: 'block', marginLeft: 10 }}
-              >
-                Hire
-              </Button></a>
-              <Link to='/indivisual' style={linkStyles}>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              <a href="/" style={{ textDecoration: "none" }}>
+                <Button
+                  // key={page}
+                  // onClick={() => { console.log('hello world') }}
+                  sx={{
+                    my: 2,
+                    color: "black",
+                    fontWeight: "600",
+                    display: "block",
+                    marginLeft: 10,
+                  }}
+                >
+                  Home
+                </Button>
+              </a>
+              <a href="/hire" style={{ textDecoration: "none" }}>
+                <Button
+                  // key={page}
+                  // onClick={() => { console.log('hello world') }}
+                  sx={{
+                    my: 2,
+                    color: "black",
+                    fontWeight: "600",
+                    display: "block",
+                    marginLeft: 10,
+                  }}
+                >
+                  Hire
+                </Button>
+              </a>
+              <Link to="/indivisual" style={linkStyles}>
                 <Button
                   // onClick={() => { console.log('hello world') }}
-                  sx={{ my: 2, color: 'black', fontWeight:'600', display: 'block', marginLeft: 10 }}
+                  sx={{
+                    my: 2,
+                    color: "black",
+                    fontWeight: "600",
+                    display: "block",
+                    marginLeft: 10,
+                  }}
                 >
                   Find Work
                 </Button>
               </Link>
             </Box>
 
-
-
             {/* Login button */}
-            {!isLogin && <Link to="/login" style={linkStyles}>
-              <Button
-                variant="contained"
-                color="primary"
-                sx={{
-                  backgroundColor: 'black',
-                  display: 'block',
-                  width: '100%',
-                  maxWidth: '200px',
-                  margin: '0 auto',
+            {!user && (
+              <Link to="/login" style={linkStyles}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  sx={{
+                    backgroundColor: "black",
+                    display: "block",
+                    width: "100%",
+                    maxWidth: "200px",
+                    margin: "0 auto",
+                  }}
+                >
+                  Sign In
+                </Button>
+              </Link>
+            )}
+
+            {user && (
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "1rem",
                 }}
               >
-                Sign In
-              </Button>
-            </Link>}
+                <div
+                  className="user-name"
+                  style={{
+                    fontSize: "1.3rem",
+                    width: "max-content",
+                    color: "#222",
+                  }}
+                >
+                  {user.email}
+                </div>
+                <Button
+                  onClick={logOutUser}
+                  variant="contained"
+                  color="primary"
+                  sx={{
+                    backgroundColor: "black",
+                    display: "block",
+                    width: "100%",
+                    maxWidth: "200px",
+                    margin: "0 auto",
+                  }}
+                >
+                  Sign Out
+                </Button>
+              </div>
+            )}
 
             {/* <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -209,9 +265,7 @@ function ResponsiveAppBar({ isLogin, setIsLogin }) {
         </Container>
       </AppBar>
     </>
-
   );
 }
 
 export default ResponsiveAppBar;
-
