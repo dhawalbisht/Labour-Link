@@ -56,7 +56,7 @@ const sendEmailToLabour = async (
   await emailjs
     .send(
       "service_h4fwbhe",
-      "template_irdvxv9",
+      "template_ry2968n",
       {
         to_email: toEmail,
         to_name: toName,
@@ -86,7 +86,7 @@ const sendEmailToUser = async (
   await emailjs
     .send(
       "service_h4fwbhe",
-      "template_ry2968n",
+      "template_irdvxv9",
       {
         to_email: toEmail,
         to_name: toName,
